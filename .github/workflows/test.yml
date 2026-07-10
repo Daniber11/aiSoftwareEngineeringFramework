@@ -1,0 +1,80 @@
+name: Test (reusable)
+
+# Workflow reutilizable: pruebas unitarias, de integración y E2E.
+# Solo las pruebas unitarias son obligatorias; el resto se activa por riesgo
+# (ver quality_gates en FRAMEWORK.yaml).
+#
+#   jobs:
+#     test:
+#       uses: ./.github/workflows/test.yml
+#       with:
+#         setup-command: npm ci
+#         unit-command: npm test
+#         integration-command: npm run test:integration
+#         coverage-path: coverage/
+
+on:
+  workflow_call:
+    inputs:
+      setup-command:
+        description: Comando de preparación del entorno
+        type: string
+        default: ''
+      unit-command:
+        description: Pruebas unitarias (obligatorio)
+        type: string
+        required: true
+      integration-command:
+        description: Pruebas de integración
+        type: string
+        default: ''
+      e2e-command:
+        description: Pruebas end-to-end de flujos críticos
+        type: string
+        default: ''
+      coverage-path:
+        description: Ruta del reporte de cobertura a publicar como artefacto
+        type: string
+        default: ''
+      working-directory:
+        description: Directorio de trabajo
+        type: string
+        default: '.'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Pruebas
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Preparar entorno
+        if: inputs.setup-command != ''
+        run: ${{ inputs.setup-command }}
+
+      - name: Pruebas unitarias
+        run: ${{ inputs.unit-command }}
+
+      - name: Pruebas de integración
+        if: inputs.integration-command != ''
+        run: ${{ inputs.integration-command }}
+
+      - name: Pruebas E2E
+        if: inputs.e2e-command != ''
+        run: ${{ inputs.e2e-command }}
+
+      - name: Publicar cobertura
+        if: inputs.coverage-path != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: ${{ inputs.coverage-path }}
+          retention-days: 14

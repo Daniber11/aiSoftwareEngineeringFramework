@@ -1,0 +1,11 @@
+{
+  "name": "AI Software Engineering Framework",
+  "version": "1.1.0",
+  "file_count": 86,
+  "entrypoints": [
+    "README.md",
+    "CODEX_BOOTSTRAP_PROMPT.md",
+    "FRAMEWORK.yaml",
+    ".ai/AGENTS.md"
+  ]
+}

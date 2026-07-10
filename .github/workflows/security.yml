@@ -1,0 +1,109 @@
+name: Security (reusable)
+
+# Workflow reutilizable: escaneo de secretos, revisión de dependencias y
+# escaneos propios del stack (SAST, auditoría de dependencias, SBOM).
+#
+#   jobs:
+#     security:
+#       uses: ./.github/workflows/security.yml
+#       with:
+#         sast-command: npm run sast
+#         dependency-audit-command: npm audit --audit-level=high
+#       secrets: inherit
+
+on:
+  workflow_call:
+    inputs:
+      setup-command:
+        description: Comando de preparación del entorno
+        type: string
+        default: ''
+      sast-command:
+        description: Análisis estático de seguridad del stack
+        type: string
+        default: ''
+      dependency-audit-command:
+        description: Auditoría de dependencias del stack
+        type: string
+        default: ''
+      sbom-command:
+        description: Generación de SBOM (debe escribir en la ruta de sbom-path)
+        type: string
+        default: ''
+      sbom-path:
+        description: Ruta del SBOM generado a publicar como artefacto
+        type: string
+        default: ''
+      working-directory:
+        description: Directorio de trabajo
+        type: string
+        default: '.'
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    name: Escaneo de secretos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout (historial completo)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  dependency-review:
+    name: Revisión de dependencias (PR)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+
+  stack-scans:
+    name: Escaneos del stack
+    if: inputs.sast-command != '' || inputs.dependency-audit-command != '' || inputs.sbom-command != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Preparar entorno
+        if: inputs.setup-command != ''
+        run: ${{ inputs.setup-command }}
+
+      - name: SAST
+        if: inputs.sast-command != ''
+        run: ${{ inputs.sast-command }}
+
+      - name: Auditoría de dependencias
+        if: inputs.dependency-audit-command != ''
+        run: ${{ inputs.dependency-audit-command }}
+
+      - name: SBOM
+        if: inputs.sbom-command != ''
+        run: ${{ inputs.sbom-command }}
+
+      - name: Publicar SBOM
+        if: inputs.sbom-path != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: ${{ inputs.sbom-path }}
+          retention-days: 90

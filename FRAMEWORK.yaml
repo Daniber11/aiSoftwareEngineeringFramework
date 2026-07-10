@@ -1,0 +1,53 @@
+framework:
+  name: AI Software Engineering Framework
+  version: 1.1.0
+  specification_version: 1
+  mode: production-ready-by-default
+  model_agnostic: true
+
+project:
+  name: ai-software-engineering-framework
+  type: methodology-template
+  maturity_target: production
+  risk_level: medium
+  repository_strategy: monorepo
+  status: active
+
+authority:
+  manifest: FRAMEWORK.yaml
+  governance: .ai/governance/DECISION_POLICY.md
+  active_context: .ai/context/CURRENT_CONTEXT.md
+  architecture: .ai/context/ARCHITECTURE.md
+  modules: .ai/context/MODULES.md
+  decisions: .ai/decisions/adr
+
+quality_gates:
+  formatting: required
+  linting: required
+  static_analysis: required
+  unit_tests: required
+  integration_tests: required
+  e2e_tests: risk_based
+  contract_tests: architecture_based
+  security_scanning: required
+  dependency_scanning: required
+  secret_scanning: required
+  build_reproducibility: required
+  documentation_validation: required
+
+validation:
+  runtime: node>=18
+  quality_gates: scripts/quality-gates.mjs
+  health_score: scripts/health-score.mjs
+
+commands:
+  framework_selftest: node --test "scripts/tests/**/*.test.mjs"
+  example_unit_tests: node --test "examples/minimal-service/test/**/*.test.mjs"
+
+ai:
+  default_autonomy: bounded
+  context_policy: minimum-necessary
+  require_plan_for_high_risk: true
+  require_adr_for_architecture_changes: true
+  max_unrelated_files_per_change: 0
+  preferred_output: summary-diff-validation

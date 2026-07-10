@@ -1,0 +1,68 @@
+name: Release
+
+# Publica un release de GitHub al empujar una etiqueta vX.Y.Z.
+# Verifica que la etiqueta coincida con FRAMEWORK.yaml, que el CHANGELOG tenga
+# la entrada de la versión y que todos los quality gates pasen.
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validación previa
+    uses: ./.github/workflows/validate-framework.yml
+
+  release:
+    name: Publicar release
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verificar release (versión, changelog, inventario)
+        run: |
+          set -euo pipefail
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          MANIFEST_VERSION="$(node -e "import('./scripts/lib/core.mjs').then(({readManifest})=>console.log(readManifest('.').framework.version))")"
+          if [ "$TAG_VERSION" != "$MANIFEST_VERSION" ]; then
+            echo "La etiqueta v$TAG_VERSION no coincide con FRAMEWORK.yaml ($MANIFEST_VERSION)."
+            exit 1
+          fi
+          node scripts/prepare-release.mjs
+
+      - name: Extraer notas del CHANGELOG
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"
+          awk -v ver="$VERSION" '
+            $0 ~ ("^## \\[" ver "\\]") { printing = 1; next }
+            printing && /^## \[/ { exit }
+            printing { print }
+          ' CHANGELOG.md > RELEASE_NOTES.md
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "CHANGELOG.md no contiene notas para $VERSION."
+            exit 1
+          fi
+
+      - name: Crear release de GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "$GITHUB_REF_NAME" \
+            --notes-file RELEASE_NOTES.md \
+            --verify-tag

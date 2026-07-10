@@ -1,0 +1,68 @@
+name: Quality (reusable)
+
+# Workflow reutilizable: formato, lint y análisis estático para cualquier stack.
+# El proyecto llamante define sus comandos; los vacíos se omiten.
+#
+#   jobs:
+#     quality:
+#       uses: ./.github/workflows/quality.yml
+#       with:
+#         setup-command: npm ci
+#         format-command: npm run format:check
+#         lint-command: npm run lint
+#         static-analysis-command: npm run typecheck
+
+on:
+  workflow_call:
+    inputs:
+      setup-command:
+        description: Comando de preparación del entorno (instalación de dependencias)
+        type: string
+        default: ''
+      format-command:
+        description: Verificación de formato (modo check, sin escribir)
+        type: string
+        default: ''
+      lint-command:
+        description: Linting
+        type: string
+        default: ''
+      static-analysis-command:
+        description: Análisis estático o typecheck
+        type: string
+        default: ''
+      working-directory:
+        description: Directorio de trabajo
+        type: string
+        default: '.'
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Formato, lint y análisis estático
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Preparar entorno
+        if: inputs.setup-command != ''
+        run: ${{ inputs.setup-command }}
+
+      - name: Formato
+        if: inputs.format-command != ''
+        run: ${{ inputs.format-command }}
+
+      - name: Lint
+        if: inputs.lint-command != ''
+        run: ${{ inputs.lint-command }}
+
+      - name: Análisis estático
+        if: inputs.static-analysis-command != ''
+        run: ${{ inputs.static-analysis-command }}
