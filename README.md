@@ -29,13 +29,15 @@ Requisito único: Node.js ≥ 18 (solo para el tooling; el proyecto usa su propi
 5. Cambiar `project.status` a `active` para endurecer las validaciones (ver ADR-0002) y ejecutar `node scripts/quality-gates.mjs`.
 6. Entregar `CODEX_BOOTSTRAP_PROMPT.md` al asistente de IA y activar el workflow `validate-framework.yml` en CI.
 
+¿El proyecto ya existe, con historia y CI propio? Los pasos de arriba asumen un repositorio vacío; usa la [guía de migración](docs/MIGRATION_GUIDE.md) en su lugar.
+
 ## Estructura
 
 | Ruta | Contenido |
 |---|---|
 | `FRAMEWORK.yaml` | Manifiesto: identidad, autoridad, quality gates y reglas de IA. |
 | `.ai/` | Gobernanza, contexto, ADR, plantillas, checklists y memoria para asistentes. |
-| `docs/` | Estándares de CI/CD, observabilidad, eficiencia de contexto y madurez. |
+| `docs/` | Estándares de CI/CD, observabilidad, eficiencia de contexto, madurez y [migración](docs/MIGRATION_GUIDE.md). |
 | `scripts/` | Validadores, health score, quality gates y CLI ([guía](scripts/README.md)). |
 | `.github/workflows/` | Workflows reutilizables de CI ([guía](.github/workflows/README.md)). |
 | `extensions/` | Adaptación del Core a stacks concretos ([índice](extensions/README.md)). |

@@ -123,4 +123,4 @@ app.get('/greet', (req, reply) => {
 });
 ```
 
-El [ejemplo minimal-service](../../examples/minimal-service/README.md) implementa este mismo patrón sin dependencias, en JavaScript puro.
+El [ejemplo minimal-service](../../examples/minimal-service/README.md) implementa este mismo patrón sin dependencias, en JavaScript puro. El [ejemplo typescript-node-service](../../examples/typescript-node-service/README.md) implementa esta extensión tal cual: TypeScript estricto, zod, `tsx` y `prettier` reales, instalables con `npm install` y validados en CI.

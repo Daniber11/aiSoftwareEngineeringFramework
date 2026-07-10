@@ -2,6 +2,15 @@
 
 Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y versionado semántico.
 
+## [Unreleased]
+
+### Added
+- Guía de migración para proyectos existentes (`docs/MIGRATION_GUIDE.md`): cómo adoptar el framework de forma incremental sin romper CI ni producción, con los pasos y las trampas a evitar.
+- Segundo ejemplo de adopción, ahora con dependencias reales: `examples/typescript-node-service` implementa la extensión typescript-node (TypeScript estricto, validación en dos capas con zod documentada en ADR-0001 propio, `tsx`, `prettier`, 13 pruebas).
+
+### Changed
+- `extensions/typescript-node/README.md` y `examples/README.md` enlazan el nuevo ejemplo.
+
 ## [1.1.0] - 2026-07-10
 
 ### Added

@@ -6,10 +6,10 @@ framework:
   model_agnostic: true
 
 project:
-  name: ai-software-engineering-framework
-  type: methodology-template
+  name: typescript-node-service
+  type: backend-service
   maturity_target: production
-  risk_level: medium
+  risk_level: low
   repository_strategy: monorepo
   status: active
 
@@ -23,7 +23,7 @@ authority:
 
 quality_gates:
   formatting: required
-  linting: required
+  linting: optional
   static_analysis: required
   unit_tests: required
   integration_tests: required
@@ -35,13 +35,11 @@ quality_gates:
   build_reproducibility: required
   documentation_validation: required
 
-validation:
-  runtime: node>=18
-  quality_gates: scripts/quality-gates.mjs
-  health_score: scripts/health-score.mjs
-
 commands:
-  framework_selftest: cd scripts && node --test
+  install: npm install
+  typecheck: npm run typecheck
+  format_check: npm run format:check
+  tests: npm test
 
 ai:
   default_autonomy: bounded

@@ -39,7 +39,9 @@ El parser propio (`lib/core.mjs`) admite mapas anidados por indentación, escala
 ## Pruebas del tooling
 
 ```bash
-node --test
+cd scripts && node --test
 ```
 
-Sin argumentos, el runner de Node descubre por convención de nombres (`*.test.mjs`) tanto las pruebas del tooling (`scripts/tests/`) como las del ejemplo — es la forma portable entre versiones de Node y sistemas operativos (los patrones glob como argumento requieren Node ≥ 21 y fallan en runners con Node 20). Cubren el parser YAML, los helpers de Markdown y el comportamiento de cada validador (incluida la dualidad bootstrap/active) sobre fixtures en directorios temporales.
+Sin argumentos, el runner de Node descubre por convención de nombres (`*.test.mjs`) todo lo que cuelga del directorio actual — por eso se acota el `cwd` a `scripts/`, en vez de pasar un directorio o un glob como argumento: los directorios como argumento no se recorren de forma fiable entre versiones de Node, y los patrones glob requieren Node ≥ 21 y fallan en runners con Node 20 (así se declara en `commands.framework_selftest` de `FRAMEWORK.yaml`). Cubren el parser YAML, los helpers de Markdown y el comportamiento de cada validador (incluida la dualidad bootstrap/active) sobre fixtures en directorios temporales.
+
+Cada ejemplo bajo `examples/` tiene su propio comando de prueba, declarado en su propio `FRAMEWORK.yaml` y documentado en [examples/README.md](../examples/README.md) — no forman parte de este gate porque algunos (como `typescript-node-service`) requieren su propio toolchain instalado (`npm install`) antes de poder correr.
