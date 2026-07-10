@@ -14,8 +14,8 @@ Servicio de saludo mínimo que adopta el AI Software Engineering Framework. Sirv
 ## Comandos
 
 ```bash
-# Pruebas (unitarias + integración HTTP)
-node --test "test/**/*.test.mjs"
+# Pruebas (unitarias + integración HTTP; descubrimiento por convención)
+node --test
 
 # Ejecutar el servicio
 node src/server.mjs            # PORT=3000 por defecto

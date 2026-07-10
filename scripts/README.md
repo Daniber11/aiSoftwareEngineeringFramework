@@ -39,7 +39,7 @@ El parser propio (`lib/core.mjs`) admite mapas anidados por indentación, escala
 ## Pruebas del tooling
 
 ```bash
-node --test "scripts/tests/**/*.test.mjs"
+node --test
 ```
 
-Cubren el parser YAML, los helpers de Markdown y el comportamiento de cada validador (incluida la dualidad bootstrap/active) sobre fixtures en directorios temporales.
+Sin argumentos, el runner de Node descubre por convención de nombres (`*.test.mjs`) tanto las pruebas del tooling (`scripts/tests/`) como las del ejemplo — es la forma portable entre versiones de Node y sistemas operativos (los patrones glob como argumento requieren Node ≥ 21 y fallan en runners con Node 20). Cubren el parser YAML, los helpers de Markdown y el comportamiento de cada validador (incluida la dualidad bootstrap/active) sobre fixtures en directorios temporales.

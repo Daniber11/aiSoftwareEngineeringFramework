@@ -187,7 +187,10 @@ export function isFrameworkRepo(manifest) {
 
 /* -------------------------- Archivos -------------------------- */
 
-export const DEFAULT_EXCLUDED_DIRS = new Set(['.git', 'node_modules', '.idea', '.vscode', 'dist', 'build', 'coverage']);
+export const DEFAULT_EXCLUDED_DIRS = new Set(['.git', 'node_modules', '.claude', '.idea', '.vscode', 'dist', 'build', 'coverage']);
+
+/** Artefactos generados localmente que no forman parte del repositorio. */
+export const DEFAULT_EXCLUDED_FILES = new Set(['health-report.json']);
 
 /** Recorre archivos bajo root, devolviendo rutas relativas con separador '/'. */
 export function walkFiles(root, { exts = null, excludeDirs = DEFAULT_EXCLUDED_DIRS } = {}) {
@@ -198,6 +201,7 @@ export function walkFiles(root, { exts = null, excludeDirs = DEFAULT_EXCLUDED_DI
       if (entry.isDirectory()) {
         if (!excludeDirs.has(entry.name)) visit(abs);
       } else if (entry.isFile()) {
+        if (DEFAULT_EXCLUDED_FILES.has(entry.name)) continue;
         if (!exts || exts.includes(path.extname(entry.name).toLowerCase())) {
           out.push(path.relative(root, abs).split(path.sep).join('/'));
         }

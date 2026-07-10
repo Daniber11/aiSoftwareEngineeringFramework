@@ -10,7 +10,7 @@ Cada ejemplo debe pasar los validadores del framework:
 
 ```bash
 node scripts/quality-gates.mjs --root examples/minimal-service --skip-commands
-node --test "examples/minimal-service/test/**/*.test.mjs"
+node --test examples/minimal-service/test/greeting.test.mjs examples/minimal-service/test/server.test.mjs
 ```
 
 Los ejemplos usan Node.js solo porque es el runtime ya exigido por el tooling (ADR-0001); la estructura documental que demuestran es idéntica para cualquier stack.

@@ -19,7 +19,7 @@ Implementación 1.1.0 completa. Validadores, quality gates y pruebas del tooling
 - `extensions/` (guías por stack).
 
 ## Riesgos y bloqueos
-- Los workflows aún no se han ejecutado en GitHub (repositorio sin remoto); validados solo por revisión estática.
+- Los workflows reutilizables (`quality`, `test`, `security`, `release`) aún no tienen ejecución real en GitHub; solo `validate-framework.yml` corre en cada push.
 
 ## Próxima acción verificable
 Ejecutar `node scripts/quality-gates.mjs` tras cualquier cambio; debe salir con código 0.

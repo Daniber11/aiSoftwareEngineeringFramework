@@ -41,8 +41,7 @@ validation:
   health_score: scripts/health-score.mjs
 
 commands:
-  framework_selftest: node --test "scripts/tests/**/*.test.mjs"
-  example_unit_tests: node --test "examples/minimal-service/test/**/*.test.mjs"
+  all_tests: node --test
 
 ai:
   default_autonomy: bounded

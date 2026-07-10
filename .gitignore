@@ -1,0 +1,9 @@
+# Configuración local de asistentes
+.claude/
+
+# Artefactos generados por los scripts
+health-report.json
+
+# Dependencias y entornos (el framework no las usa, los adoptantes sí)
+node_modules/
+.env

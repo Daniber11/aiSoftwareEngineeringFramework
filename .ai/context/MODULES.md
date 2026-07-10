@@ -10,9 +10,9 @@ Usa este archivo para evitar explorar todo el repositorio.
 | decisions | Registro de decisiones mediante ADR | `.ai/decisions/adr/` | Formato del ADR-0000 | `scripts/validate-structure.mjs` | Mantenedores |
 | task-templates | Plantillas de tarea y checklists operativos | `.ai/templates/`, `.ai/checklists/` | Documental | `scripts/validate-links.mjs` | Mantenedores |
 | standards | Estándares de CI/CD, observabilidad, contexto y madurez | `docs/` | Documental | `scripts/validate-links.mjs` | Mantenedores |
-| automation | Validadores, health score, quality gates y CLI de bootstrap | `scripts/` | CLI: código de salida 0/≠0; `health-score --json` emite JSON | `scripts/tests/` (`node --test scripts/tests`) | Mantenedores |
+| automation | Validadores, health score, quality gates y CLI de bootstrap | `scripts/` | CLI: código de salida 0/≠0; `health-score --json` emite JSON | `scripts/tests/` (descubiertas por `node --test`) | Mantenedores |
 | ci | Workflows reutilizables de GitHub Actions | `.github/workflows/` | Interfaces `workflow_call` documentadas en su README | `validate-framework.yml` se ejecuta en cada push/PR | Mantenedores |
 | extensions | Adaptación del Core a stacks concretos | `extensions/` | Estructura de 11 secciones definida en `extensions/README.md` | `scripts/validate-links.mjs` | Mantenedores |
-| examples | Adopción mínima de referencia, validable de punta a punta | `examples/minimal-service/` | Pasa los validadores con `--root` | `node --test examples/minimal-service/test` | Mantenedores |
+| examples | Adopción mínima de referencia, validable de punta a punta | `examples/minimal-service/` | Pasa los validadores con `--root` | `examples/minimal-service/test/` (descubiertas por `node --test`) | Mantenedores |
 
 Cada módulo debe tener una responsabilidad clara y enlaces directos a sus documentos y pruebas.

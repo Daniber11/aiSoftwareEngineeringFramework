@@ -36,7 +36,7 @@ quality_gates:
   documentation_validation: required
 
 commands:
-  unit_and_integration_tests: node --test "test/**/*.test.mjs"
+  unit_and_integration_tests: node --test
 
 ai:
   default_autonomy: bounded
