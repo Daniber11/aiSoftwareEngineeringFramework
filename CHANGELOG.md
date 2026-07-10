@@ -2,7 +2,7 @@
 
 Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y versionado semántico.
 
-## [Unreleased]
+## [1.2.0] - 2026-07-10
 
 ### Added
 - Guía de migración para proyectos existentes (`docs/MIGRATION_GUIDE.md`): cómo adoptar el framework de forma incremental sin romper CI ni producción, con los pasos y las trampas a evitar.
