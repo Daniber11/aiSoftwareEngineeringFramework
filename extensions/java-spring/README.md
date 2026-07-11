@@ -120,3 +120,5 @@ class SaludoController {
   }
 }
 ```
+
+El [ejemplo java-spring-service](../../examples/java-spring-service/README.md) implementa este mismo patrón de forma ejecutable y probada, con Gradle Wrapper autocontenido — ver su ADR-0001 sobre por qué el wrapper y no un Gradle global.
