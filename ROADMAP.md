@@ -17,7 +17,9 @@ Alcance cerrado deliberadamente en un ejemplo adicional: basta para demostrar qu
 - [x] Ejemplo ejecutable de la extensión react (`examples/react-greeting-app`): hook/componente, render real sobre jsdom sin Testing Library ni `react-test-renderer` (deprecado), documentado en su propio ADR.
 - [x] Ejemplo ejecutable de la extensión java-spring (`examples/java-spring-service`): dominio puro + Spring Boot 3, Gradle Wrapper bootstrapeado localmente (sin Gradle global), documentado en su propio ADR.
 - [x] Ejemplo ejecutable de la extensión dotnet (`examples/dotnet-greeting-service`): dominio puro + Minimal API con ASP.NET Core 8, SDK instalado localmente al usuario (sin tocar el sistema), `src/`+`test/` como proyectos hermanos, documentado en su propio ADR.
-- [ ] Ejemplos ejecutables para Python, mobile e infraestructura — requieren instalar Python real, Flutter o Terraform; cada instalación requiere confirmación explícita del usuario antes de proceder (no una delegación genérica).
+- [x] Ejemplo ejecutable de la extensión infrastructure (`examples/infrastructure-module`): módulo Terraform con variables validadas, verificado de punta a punta (`fmt`/`validate`/`plan`/`apply`/`destroy`) con el proveedor `local`, sin cuenta de nube, documentado en su propio ADR.
+- [ ] Ejemplo ejecutable para mobile (Flutter) — descarga en curso.
+- [ ] Ejemplo ejecutable para Python — no autorizado en la ronda de instalaciones actual; requiere confirmación explícita adicional del usuario.
 - [x] Decisión explícita sobre si se agrega una extensión de datos/ML: [ADR-0003](.ai/decisions/adr/0003-no-agregar-extension-de-datos-ml-por-ahora.md) — no por ahora, con condiciones claras para reabrirlo.
 
 ## 2.0 — Runtime

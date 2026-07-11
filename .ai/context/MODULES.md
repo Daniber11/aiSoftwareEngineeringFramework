@@ -13,7 +13,7 @@ Usa este archivo para evitar explorar todo el repositorio.
 | automation | Validadores, health score, quality gates y CLI de bootstrap | `scripts/` | CLI: código de salida 0/≠0; `health-score --json` emite JSON | `scripts/tests/` (descubiertas por `node --test`) | Mantenedores |
 | ci | Workflows reutilizables de GitHub Actions | `.github/workflows/` | Interfaces `workflow_call` documentadas en su README | `validate-framework.yml` se ejecuta en cada push/PR | Mantenedores |
 | extensions | Adaptación del Core a stacks concretos | `extensions/` | Estructura de 11 secciones definida en `extensions/README.md` | `scripts/validate-links.mjs` | Mantenedores |
-| examples | Adopciones de referencia validables de punta a punta (Node cero-deps, typescript-node, angular, react, java-spring y dotnet) | `examples/` | Pasa los validadores con `--root` | `examples/*/test/` (Node), `./gradlew test` (java-spring), `dotnet test` (dotnet) | Mantenedores |
+| examples | Adopciones de referencia validables de punta a punta (Node cero-deps, typescript-node, angular, react, java-spring, dotnet e infrastructure) | `examples/` | Pasa los validadores con `--root` | `examples/*/test/` (Node), `./gradlew test` (java-spring), `dotnet test` (dotnet), `terraform plan` (infrastructure) | Mantenedores |
 | migration | Guía para adoptar el framework en proyectos existentes, no desde cero | `docs/MIGRATION_GUIDE.md` | Documental | `scripts/validate-links.mjs` | Mantenedores |
 
 Cada módulo debe tener una responsabilidad clara y enlaces directos a sus documentos y pruebas.

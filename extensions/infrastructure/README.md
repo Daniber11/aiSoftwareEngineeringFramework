@@ -123,3 +123,5 @@ module "artefactos" {
   tags        = local.tags_obligatorias
 }
 ```
+
+Este snippet usa `aws_s3_bucket` como referencia de sintaxis, pero no es ejecutable sin credenciales de AWS. El [ejemplo infrastructure-module](../../examples/infrastructure-module/README.md) implementa la misma estructura (módulo con variables validadas + composición por ambiente) de forma realmente ejecutable, con el proveedor `local` en vez de un proveedor de nube — ver su ADR-0001 sobre por qué.
