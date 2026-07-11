@@ -10,7 +10,7 @@ Lee, en orden:
 2. `.ai/context/CURRENT_CONTEXT.md`.
 3. `.ai/governance/DECISION_POLICY.md`.
 4. `.ai/context/MODULES.md`.
-5. Documentos y archivos estrictamente relacionados con la tarea.
+5. Documentos y archivos estrictamente relacionados con la tarea — `node scripts/resolve-context.mjs <ruta>` calcula automáticamente qué módulo de `MODULES.md` y qué ADR aplican a una ruta dada (ver ADR-0005); úsalo antes de buscar manualmente.
 
 ## Conducta
 

@@ -27,6 +27,7 @@ node scripts/prepare-release.mjs        # verificación previa a release
 | `health-score.mjs` | Ejecuta todos los validadores y pondera un score 0-100 (`--json`, `--out reporte.json`). Niveles: ≥90 saludable, ≥70 aceptable, ≥50 insuficiente, <50 crítico. | Score < 70 (código de salida 1). |
 | `quality-gates.mjs` | Gate local completo: todos los validadores y después los comandos de la sección `commands` del manifiesto (`--skip-commands` los omite). `--profile <nombre>` usa los `commands` resueltos de ese perfil (ver ADR-0004). | Cualquier validador con errores o comando con salida ≠ 0. |
 | `resolve-profile.mjs <nombre>` | Imprime la configuración efectiva (`quality_gates`, `ai`, `commands`) de un perfil declarado en `FRAMEWORK.yaml: profiles` (`--json` para máquina). Herramienta de inspección; no ejecuta nada. | Perfil inexistente. |
+| `resolve-context.mjs <ruta>` | Calcula qué módulo de `MODULES.md` y qué ADR (por su campo "Alcance:") cubren una ruta dada (`--json` para máquina). Ver ADR-0005. | Falta el argumento de ruta. |
 | `prepare-release.mjs` | Verifica versión del manifiesto ↔ entrada de CHANGELOG ↔ inventario, y corre los quality gates. `--sync-inventory` regenera `framework-inventory.json`. | Cualquier verificación fallida. |
 
 ## Severidad según el estado del proyecto (ADR-0002)
@@ -54,6 +55,15 @@ node scripts/quality-gates.mjs --profile dev  # ejecuta el gate con los commands
 ```
 
 Este propio repositorio declara `contributor` (autonomía `full`, escaneos de dependencias/secretos `optional`, para iteración local) y `release` (añade `release_check: node scripts/prepare-release.mjs`) como ejemplo real.
+
+## Resolución automática de contexto (ADR-0005)
+
+`node scripts/resolve-context.mjs <ruta>` cruza la ruta dada contra la columna "Rutas" de `.ai/context/MODULES.md` y el campo "- Alcance:" de cada ADR, y devuelve qué módulo y qué decisiones aplican — sin metadatos nuevos que mantener, solo lo que el framework ya obliga a declarar.
+
+```bash
+node scripts/resolve-context.mjs scripts/quality-gates.mjs
+node scripts/resolve-context.mjs examples/react-greeting-app/src/app/GreetingForm.tsx --json
+```
 
 ## Subconjunto YAML soportado en FRAMEWORK.yaml
 

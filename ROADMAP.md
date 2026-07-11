@@ -26,5 +26,5 @@ Seis de las ocho extensiones tienen ahora ejemplo ejecutable (typescript-node, a
 
 ## 2.0 — Runtime (en curso)
 - [x] Perfiles de configuración por ambiente: sección `profiles` en `FRAMEWORK.yaml` con overrides parciales de `quality_gates`/`ai`/`commands`, resueltos por `scripts/resolve-profile.mjs` y `quality-gates.mjs --profile`. Ver [ADR-0004](.ai/decisions/adr/0004-perfiles-de-configuracion-por-ambiente.md). Este propio repositorio declara `contributor` y `release` como dogfooding real.
-- [ ] Motor de políticas para gobernanza de IA (validación automática contra `DECISION_POLICY.md`) — descartado por ahora en el ADR-0004 por falta de necesidad demostrada; posible frente futuro.
-- [ ] Resolución automática de contexto (qué documentos leer según la tarea) — sin diseñar aún.
+- [x] Resolución automática de contexto: `scripts/resolve-context.mjs <ruta>` cruza la ruta dada contra `MODULES.md` y el "Alcance" de cada ADR, sin metadatos nuevos que mantener. Ver [ADR-0005](.ai/decisions/adr/0005-resolucion-automatica-de-contexto.md). `.ai/AGENTS.md` ahora referencia esta herramienta en su paso 5.
+- [ ] Motor de políticas para gobernanza de IA (validación automática contra `DECISION_POLICY.md`) — descartado por ahora en el ADR-0004 por falta de necesidad demostrada; posible frente futuro, sin fecha.

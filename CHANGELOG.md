@@ -9,6 +9,9 @@ Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y ve
 - Este repositorio declara dos perfiles reales como dogfooding: `contributor` (autonomía de IA `full`, escaneos de dependencias/secretos `optional`, para iteración local) y `release` (añade el comando `release_check`).
 - `scripts/tests/profiles.test.mjs`: 7 pruebas cubriendo la resolución de perfiles, la validación de overrides inválidos, y la ejecución real de `quality-gates --profile`.
 
+- Segunda pieza de la fase 2.0: resolución automática de contexto. `scripts/resolve-context.mjs <ruta>` cruza la ruta dada contra la columna "Rutas" de `.ai/context/MODULES.md` y el campo "- Alcance:" de cada ADR — sin metadatos nuevos que mantener por separado. `.ai/AGENTS.md` referencia la herramienta en su paso 5. Documentado en [ADR-0005](.ai/decisions/adr/0005-resolucion-automatica-de-contexto.md).
+- `scripts/tests/resolve-context.test.mjs`: 6 pruebas nuevas (28/28 en el suite completo).
+
 ### Changed
 - `scripts/validate-manifest.mjs` valida la sección `profiles` cuando existe (mismas reglas que la sección base, sin exigir las 12 claves).
 
