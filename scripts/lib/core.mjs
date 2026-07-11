@@ -227,6 +227,15 @@ export const DEFAULT_EXCLUDED_DIRS = new Set([
 /** Artefactos generados localmente que no forman parte del repositorio. */
 export const DEFAULT_EXCLUDED_FILES = new Set(['health-report.json']);
 
+/**
+ * Extensiones de artefactos sueltos que algunos IDE/toolchains generan fuera
+ * de cualquier carpeta excluida (p. ej. `flutter create` deja un `*.iml` de
+ * IntelliJ/Android Studio en la raíz del proyecto, no dentro de `.idea/`).
+ * Sin esto, el conteo difiere entre un checkout limpio (CI) y un disco local
+ * donde ya se ejecutó el toolchain.
+ */
+export const DEFAULT_EXCLUDED_EXTENSIONS = new Set(['.iml']);
+
 /** Recorre archivos bajo root, devolviendo rutas relativas con separador '/'. */
 export function walkFiles(root, { exts = null, excludeDirs = DEFAULT_EXCLUDED_DIRS } = {}) {
   const out = [];
@@ -237,6 +246,7 @@ export function walkFiles(root, { exts = null, excludeDirs = DEFAULT_EXCLUDED_DI
         if (!excludeDirs.has(entry.name)) visit(abs);
       } else if (entry.isFile()) {
         if (DEFAULT_EXCLUDED_FILES.has(entry.name)) continue;
+        if (DEFAULT_EXCLUDED_EXTENSIONS.has(path.extname(entry.name).toLowerCase())) continue;
         if (!exts || exts.includes(path.extname(entry.name).toLowerCase())) {
           out.push(path.relative(root, abs).split(path.sep).join('/'));
         }

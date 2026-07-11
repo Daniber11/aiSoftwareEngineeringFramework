@@ -16,6 +16,9 @@ Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y ve
 - `scripts/lib/core.mjs`: `DEFAULT_EXCLUDED_DIRS` ahora también excluye `__pycache__` y `.pytest_cache` del conteo del inventario.
 - `scripts/tests/classify-change.test.mjs`: 8 pruebas nuevas (36/36 en el suite completo antes de sumar las de Flutter).
 
+### Fixed
+- `scripts/lib/core.mjs`: `walkFiles` ahora también excluye por extensión (`DEFAULT_EXCLUDED_EXTENSIONS`, inicialmente `.iml`), no solo por carpeta o nombre exacto. `flutter create` deja un `*.iml` de IntelliJ/Android Studio suelto en la raíz del proyecto (fuera de `.idea/`, ya excluida), lo que desincronizaba el conteo del inventario entre un disco local donde ya corrió el toolchain (268) y un checkout limpio como el de CI (267) — el primer push de `flutter-greeting-app` falló el gate `Enlaces e inventario` en CI por esto.
+
 ## [1.4.0] - 2026-07-11
 
 ### Added
