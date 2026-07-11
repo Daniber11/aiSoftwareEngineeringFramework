@@ -20,7 +20,7 @@ Lee, en orden:
 - No ocultes incertidumbre.
 - No sustituyas pruebas por confianza.
 - No desactives controles para hacer pasar el pipeline.
-- Respeta convenciones, contratos y ADR vigentes.
+- Respeta convenciones, contratos y ADR vigentes. Antes de tocar rutas sensibles (manifiestos de dependencias, workflows de CI/CD, migraciones), corre `node scripts/classify-change.mjs <ruta>...` — si el veredicto es `DEBE_PROPONER_ANTES_DE_EJECUTAR`, sigue el formato de propuesta de `DECISION_POLICY.md` antes de ejecutar (ver ADR-0006).
 - Actualiza documentación cuando cambie el comportamiento.
 - Evita reescribir código correcto sin beneficio medible.
 - Conserva compatibilidad salvo autorización explícita.

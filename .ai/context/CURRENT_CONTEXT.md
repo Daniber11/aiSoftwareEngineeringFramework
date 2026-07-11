@@ -3,21 +3,21 @@
 Mantén este archivo breve. Debe permitir reanudar trabajo sin releer el repositorio.
 
 ## Objetivo actual
-Terminar los tres pendientes que el usuario pidió explícitamente tras el reporte de estado: ejemplo Python (hecho), reintento de Flutter, motor de políticas de gobernanza de IA.
+Cerrar los tres pendientes del pedido explícito del usuario: ejemplo Python (hecho), reintento de Flutter (en curso, descarga en segundo plano), motor de políticas de gobernanza de IA (hecho).
 
 ## Estado
-Octavo ejemplo añadido: `examples/python-greeting-service` (FastAPI, Python 3.12 embebido sin instalador MSI, 17 pruebas, smoke test real). Siete de ocho extensiones tienen ahora ejemplo ejecutable. Aún sin nueva versión etiquetada tras 1.4.0.
+Los tres frentes de la fase 2.0 quedan entregados: perfiles (ADR-0004), resolución de contexto (ADR-0005) y motor de políticas (ADR-0006). Aún sin nueva versión etiquetada tras 1.4.0.
 
 ## Decisiones vigentes relevantes
-- ADR-0001 a ADR-0005 del framework (tooling, bootstrap, sin ML, perfiles, resolución de contexto).
-- ADR-0001 local de `python-greeting-service`: distribución embebida de Python, el instalador MSI falló dos veces por restricción del entorno.
+- ADR-0001 a ADR-0006 del framework.
+- ADR-0006 revisa explícitamente la postura de "no por ahora" del ADR-0004, justificada por el pedido explícito del usuario — no una contradicción, sino su propia condición de reapertura cumpliéndose.
 
 ## Archivos o módulos en alcance
-- `examples/python-greeting-service/` (octavo ejemplo).
-- `extensions/python/README.md`, `examples/README.md` (enlazados al nuevo ejemplo).
+- `scripts/classify-change.mjs`, `scripts/tests/classify-change.test.mjs`.
+- `.ai/AGENTS.md` (referencia el motor de políticas antes de tocar rutas sensibles).
 
 ## Riesgos y bloqueos
-- Quedan dos pendientes del pedido explícito del usuario: reintentar Flutter (la red mejoró notablemente en esta sesión, de ~120 KB/s a ~870 KB/s+, vale la pena reintentar) y diseñar el motor de políticas de gobernanza de IA (requiere ADR que justifique revisar la decisión del ADR-0004).
+- Descarga del SDK de Flutter en curso en segundo plano (la red mejoró de ~120 KB/s a ~870 KB/s en esta sesión); pendiente construir el ejemplo si termina a tiempo.
 
 ## Próxima acción verificable
 Ejecutar `node scripts/quality-gates.mjs` tras cualquier cambio; debe salir con código 0. Antes de release, `node scripts/prepare-release.mjs --sync-inventory`.

@@ -28,6 +28,7 @@ node scripts/prepare-release.mjs        # verificación previa a release
 | `quality-gates.mjs` | Gate local completo: todos los validadores y después los comandos de la sección `commands` del manifiesto (`--skip-commands` los omite). `--profile <nombre>` usa los `commands` resueltos de ese perfil (ver ADR-0004). | Cualquier validador con errores o comando con salida ≠ 0. |
 | `resolve-profile.mjs <nombre>` | Imprime la configuración efectiva (`quality_gates`, `ai`, `commands`) de un perfil declarado en `FRAMEWORK.yaml: profiles` (`--json` para máquina). Herramienta de inspección; no ejecuta nada. | Perfil inexistente. |
 | `resolve-context.mjs <ruta>` | Calcula qué módulo de `MODULES.md` y qué ADR (por su campo "Alcance:") cubren una ruta dada (`--json` para máquina). Ver ADR-0005. | Falta el argumento de ruta. |
+| `classify-change.mjs <ruta>[:A\|M\|D] ...` | Clasifica rutas contra las categorías de `DECISION_POLICY.md` con reglas deterministas (manifiestos de dependencias, workflows de CI, migraciones, eliminación de archivos). Ver ADR-0006. | Alguna ruta dispara una regla (`DEBE_PROPONER_ANTES_DE_EJECUTAR`, salida ≠ 0) — es la señal, no un fallo del script. |
 | `prepare-release.mjs` | Verifica versión del manifiesto ↔ entrada de CHANGELOG ↔ inventario, y corre los quality gates. `--sync-inventory` regenera `framework-inventory.json`. | Cualquier verificación fallida. |
 
 ## Severidad según el estado del proyecto (ADR-0002)
@@ -64,6 +65,19 @@ Este propio repositorio declara `contributor` (autonomía `full`, escaneos de de
 node scripts/resolve-context.mjs scripts/quality-gates.mjs
 node scripts/resolve-context.mjs examples/react-greeting-app/src/app/GreetingForm.tsx --json
 ```
+
+## Motor de políticas de gobernanza de IA (ADR-0006)
+
+`node scripts/classify-change.mjs <ruta>[:A|M|D] ...` clasifica un conjunto de rutas cambiadas contra las categorías de `.ai/governance/DECISION_POLICY.md` con reglas deterministas por ruta (manifiestos de dependencias, workflows de CI/CD, rutas de migración, `SECURITY_POLICY.md`, archivos eliminados) — no interpreta el texto libre de la política con un modelo. Reutiliza `matchModules`/`matchAdrs` de `resolve-context.mjs` para mostrar qué ADR aceptados podrían verse afectados.
+
+```bash
+node scripts/classify-change.mjs "package.json" "src/domain/greeting.ts"
+# Veredicto: DEBE_PROPONER_ANTES_DE_EJECUTAR (package.json toca un manifiesto de dependencias)
+
+git diff --name-status main | awk '{print $2":"$1}' | xargs node scripts/classify-change.mjs
+```
+
+El código de salida es 1 cuando el veredicto es `DEBE_PROPONER_ANTES_DE_EJECUTAR` — úsalo como gate, no solo como reporte.
 
 ## Subconjunto YAML soportado en FRAMEWORK.yaml
 
