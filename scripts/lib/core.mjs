@@ -221,7 +221,7 @@ export const DEFAULT_EXCLUDED_DIRS = new Set([
   '.git', 'node_modules', '.claude', '.idea', '.vscode', 'dist', 'build', 'coverage',
   // Cachés de toolchains de ejemplos (Java/Gradle, .NET, Flutter): nunca versionadas,
   // pero pueden existir en disco tras ejecutar los ejemplos localmente.
-  '.gradle', 'bin', 'obj', '.dart_tool', '.terraform',
+  '.gradle', 'bin', 'obj', '.dart_tool', '.terraform', '__pycache__', '.pytest_cache',
 ]);
 
 /** Artefactos generados localmente que no forman parte del repositorio. */
