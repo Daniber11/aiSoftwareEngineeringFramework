@@ -116,3 +116,5 @@ app.MapGet("/greet", (string name) =>
     catch (GreetingError e) { return Results.Problem(e.Message, statusCode: 400); }
 });
 ```
+
+El [ejemplo dotnet-greeting-service](../../examples/dotnet-greeting-service/README.md) implementa este mismo patrón de forma ejecutable y probada, con `src/`+`test/` como proyectos hermanos — ver su ADR-0001 sobre por qué esa estructura y cómo se instaló el SDK sin tocar el sistema.

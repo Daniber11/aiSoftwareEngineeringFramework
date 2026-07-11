@@ -9,6 +9,7 @@ Adopciones de referencia del framework, completas y validables de punta a punta.
 | [angular-greeting-app](angular-greeting-app/README.md) | La [extensión angular](../extensions/angular/README.md) llevada a código real: standalone component, `OnPush`, estado por signals, servicio inyectable sobre un dominio puro, y pruebas de componente sin `TestBed` ni Angular CLI (ADR-0001 propio explica cómo y qué queda sin cubrir). |
 | [react-greeting-app](react-greeting-app/README.md) | La [extensión react](../extensions/react/README.md) llevada a código real: separación hook/componente, estado derivado con `useMemo`, y pruebas con render real sobre DOM (jsdom) sin Testing Library ni la deprecada `react-test-renderer` (ADR-0001 propio explica la elección). |
 | [java-spring-service](java-spring-service/README.md) | La [extensión java-spring](../extensions/java-spring/README.md) llevada a código real: dominio puro, controlador REST con Spring Boot 3, Gradle Wrapper autocontenido (sin depender de un Gradle instalado globalmente, ADR-0001 propio), 15 pruebas (JUnit 5 + AssertJ + `@SpringBootTest`). |
+| [dotnet-greeting-service](dotnet-greeting-service/README.md) | La [extensión dotnet](../extensions/dotnet/README.md) llevada a código real: dominio puro, Minimal API con ASP.NET Core 8, `src/`+`test/` como proyectos hermanos (ADR-0001 propio explica por qué), 15 pruebas (xUnit + `WebApplicationFactory`). |
 
 Cada ejemplo debe pasar los validadores del framework:
 
@@ -27,6 +28,9 @@ cd examples/react-greeting-app && npm install && npm run typecheck && npm run fo
 
 node scripts/quality-gates.mjs --root examples/java-spring-service --skip-commands
 cd examples/java-spring-service && ./gradlew test --console=plain
+
+node scripts/quality-gates.mjs --root examples/dotnet-greeting-service --skip-commands
+cd examples/dotnet-greeting-service && dotnet test test/GreetingService.Tests.csproj
 ```
 
 `minimal-service` usa Node.js solo porque es el runtime ya exigido por el tooling (ADR-0001); su estructura documental es idéntica para cualquier stack. Los demás ejemplos sí usan dependencias y toolchains reales porque su propósito es demostrar cada extensión tal cual se usaría en un proyecto real, no minimizar el footprint.
