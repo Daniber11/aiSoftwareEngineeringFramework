@@ -14,7 +14,7 @@ Alcance cerrado deliberadamente en un ejemplo adicional: basta para demostrar qu
 
 ## 1.3 — Cobertura de extensiones y datos/ML (en curso)
 - [x] Ejemplo ejecutable de la extensión angular (`examples/angular-greeting-app`): standalone, `OnPush`, signals; pruebas de componente sin `TestBed` documentadas en su propio ADR.
-- [ ] Ejemplo ejecutable de la extensión react (mismo toolchain npm ya verificado).
+- [x] Ejemplo ejecutable de la extensión react (`examples/react-greeting-app`): hook/componente, render real sobre jsdom sin Testing Library ni `react-test-renderer` (deprecado), documentado en su propio ADR.
 - [ ] Ejemplos ejecutables para Java/Spring, Python, .NET, mobile e infraestructura — requieren un entorno con Gradle/Maven, SDK de .NET, Python real, Flutter o Terraform, no disponibles al momento de escribir esto.
 - [ ] Decisión explícita (ADR) sobre si se agrega una extensión de datos/ML, fuera del alcance original de `extensions/README.md`.
 

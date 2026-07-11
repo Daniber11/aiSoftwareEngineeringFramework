@@ -128,3 +128,5 @@ export function Saludo({ name }: { name: string }) {
   return <p>{data.greeting}</p>;
 }
 ```
+
+El [ejemplo react-greeting-app](../../examples/react-greeting-app/README.md) implementa el mismo patrón hook/componente de forma ejecutable y probada (sin backend real: el hook envuelve un dominio síncrono en vez de `useQuery`), con pruebas de render real sobre DOM — ver su ADR-0001 sobre por qué usa jsdom directo en vez de Testing Library.

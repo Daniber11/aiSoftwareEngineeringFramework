@@ -7,6 +7,7 @@ Adopciones de referencia del framework, completas y validables de punta a punta.
 | [minimal-service](minimal-service/README.md) | La adopción mínima real: manifiesto lleno, contexto activo, índice de módulos, un ADR, dominio puro con validación de entradas, servidor HTTP con health check, logs estructurados con correlation ID y pruebas unitarias y de integración con `node:test`. Cero dependencias externas. |
 | [typescript-node-service](typescript-node-service/README.md) | La [extensión typescript-node](../extensions/typescript-node/README.md) llevada a código real: TypeScript estricto, validación en dos capas (zod en el borde + reglas de negocio en el dominio, con su propio ADR), `tsx`, `prettier` y dependencias reales fijadas por lockfile. |
 | [angular-greeting-app](angular-greeting-app/README.md) | La [extensión angular](../extensions/angular/README.md) llevada a código real: standalone component, `OnPush`, estado por signals, servicio inyectable sobre un dominio puro, y pruebas de componente sin `TestBed` ni Angular CLI (ADR-0001 propio explica cómo y qué queda sin cubrir). |
+| [react-greeting-app](react-greeting-app/README.md) | La [extensión react](../extensions/react/README.md) llevada a código real: separación hook/componente, estado derivado con `useMemo`, y pruebas con render real sobre DOM (jsdom) sin Testing Library ni la deprecada `react-test-renderer` (ADR-0001 propio explica la elección). |
 
 Cada ejemplo debe pasar los validadores del framework:
 
@@ -19,6 +20,9 @@ cd examples/typescript-node-service && npm install && npm run typecheck && npm r
 
 node scripts/quality-gates.mjs --root examples/angular-greeting-app --skip-commands
 cd examples/angular-greeting-app && npm install && npm run typecheck && npm run format:check && npm test
+
+node scripts/quality-gates.mjs --root examples/react-greeting-app --skip-commands
+cd examples/react-greeting-app && npm install && npm run typecheck && npm run format:check && npm test
 ```
 
-`minimal-service` usa Node.js solo porque es el runtime ya exigido por el tooling (ADR-0001); su estructura documental es idéntica para cualquier stack. `typescript-node-service` y `angular-greeting-app` sí usan dependencias reales de npm porque su propósito es demostrar cada extensión tal cual se usaría en un proyecto real, no minimizar el footprint.
+`minimal-service` usa Node.js solo porque es el runtime ya exigido por el tooling (ADR-0001); su estructura documental es idéntica para cualquier stack. Los demás ejemplos sí usan dependencias reales de npm porque su propósito es demostrar cada extensión tal cual se usaría en un proyecto real, no minimizar el footprint.
