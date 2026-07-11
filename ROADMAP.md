@@ -24,5 +24,7 @@ Alcance cerrado deliberadamente en un ejemplo adicional: basta para demostrar qu
 
 Seis de las ocho extensiones tienen ahora ejemplo ejecutable (typescript-node, angular, react, java-spring, dotnet, infrastructure). El patrón "extensión documentada → proyecto ejecutable que la implementa" queda demostrado a través de cuatro toolchains genuinamente distintos (npm/Node, Gradle/Java, SDK de .NET, Terraform), suficiente para considerar la fase sustancialmente cumplida sin necesidad de agotar las ocho.
 
-## 2.0 — Runtime
-Orquestación de perfiles, políticas y resolución automática de contexto.
+## 2.0 — Runtime (en curso)
+- [x] Perfiles de configuración por ambiente: sección `profiles` en `FRAMEWORK.yaml` con overrides parciales de `quality_gates`/`ai`/`commands`, resueltos por `scripts/resolve-profile.mjs` y `quality-gates.mjs --profile`. Ver [ADR-0004](.ai/decisions/adr/0004-perfiles-de-configuracion-por-ambiente.md). Este propio repositorio declara `contributor` y `release` como dogfooding real.
+- [ ] Motor de políticas para gobernanza de IA (validación automática contra `DECISION_POLICY.md`) — descartado por ahora en el ADR-0004 por falta de necesidad demostrada; posible frente futuro.
+- [ ] Resolución automática de contexto (qué documentos leer según la tarea) — sin diseñar aún.

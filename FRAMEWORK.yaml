@@ -43,6 +43,17 @@ validation:
 commands:
   framework_selftest: cd scripts && node --test
 
+profiles:
+  contributor:
+    quality_gates:
+      dependency_scanning: optional
+      secret_scanning: optional
+    ai:
+      default_autonomy: full
+  release:
+    commands:
+      release_check: node scripts/prepare-release.mjs
+
 ai:
   default_autonomy: bounded
   context_policy: minimum-necessary

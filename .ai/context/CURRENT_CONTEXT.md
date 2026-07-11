@@ -3,21 +3,23 @@
 Mantén este archivo breve. Debe permitir reanudar trabajo sin releer el repositorio.
 
 ## Objetivo actual
-Publicar el release 1.3.0: fase 1.3 cerrada con 6 de 8 extensiones con ejemplo ejecutable (typescript-node, angular, react, java-spring, dotnet, infrastructure).
+Fase 2.0 (Runtime) iniciada: perfiles de configuración por ambiente implementados y verificados. Siguiente foco dentro de 2.0: resolución automática de contexto (sin diseñar aún).
 
 ## Estado
-1.3.0 preparado: manifiesto, CHANGELOG e inventario alineados; quality gates en verde. Pendiente confirmar y publicar el tag v1.3.0.
+`profiles` en FRAMEWORK.yaml + `resolve-profile.mjs` + `quality-gates.mjs --profile` implementados, probados (7 pruebas nuevas) y dogfooded en este propio repo (`contributor`, `release`). Aún sin nueva versión etiquetada tras 1.3.0.
 
 ## Decisiones vigentes relevantes
 - ADR-0001: tooling de validación en Node.js ≥ 18 solo con stdlib.
 - ADR-0002: `project.status` gobierna la severidad de placeholders y validaciones de contexto.
 - ADR-0003: no se agrega extensión de datos/ML por ahora.
+- ADR-0004: perfiles de configuración por ambiente (overrides parciales de quality_gates/ai/commands).
 
 ## Archivos o módulos en alcance
-- Ninguno en curso.
+- `scripts/lib/core.mjs` (`resolveProfile`), `scripts/validate-manifest.mjs`, `scripts/resolve-profile.mjs`, `scripts/quality-gates.mjs` (`--profile`).
+- `FRAMEWORK.yaml` (sección `profiles: contributor, release`).
 
 ## Riesgos y bloqueos
-- Flutter (mobile) y Python siguen sin ejemplo ejecutable: Flutter por velocidad de red de esta sesión, Python por falta de autorización explícita. Documentado en `ROADMAP.md` y en el CHANGELOG de 1.3.0 como "Known limitations".
+- `quality_gates`/`ai` dentro de un perfil siguen siendo declarativos (no auto-forzados) — documentado explícitamente en el ADR-0004, no es una limitación oculta.
 
 ## Próxima acción verificable
 Ejecutar `node scripts/quality-gates.mjs` tras cualquier cambio; debe salir con código 0. Antes de release, `node scripts/prepare-release.mjs --sync-inventory`.

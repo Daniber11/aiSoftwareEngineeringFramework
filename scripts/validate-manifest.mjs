@@ -86,6 +86,46 @@ export function run(root, reporter = new Reporter()) {
     }
   }
 
+  if (m.profiles) {
+    if (typeof m.profiles !== 'object' || Array.isArray(m.profiles)) {
+      reporter.error('profiles debe ser un mapa de nombre de perfil a overrides', 'FRAMEWORK.yaml');
+    } else {
+      for (const [profileName, profile] of Object.entries(m.profiles)) {
+        if (typeof profile !== 'object' || profile === null || Array.isArray(profile)) {
+          reporter.error(`profiles.${profileName} debe ser un mapa`, 'FRAMEWORK.yaml');
+          continue;
+        }
+        if (profile.quality_gates) {
+          for (const [key, value] of Object.entries(profile.quality_gates)) {
+            if (!GATE_KEYS.includes(key)) {
+              reporter.error(`profiles.${profileName}.quality_gates.${key} no es una clave de gate válida`, 'FRAMEWORK.yaml');
+            } else if (!GATE_VALUES.includes(value)) {
+              reporter.error(
+                `profiles.${profileName}.quality_gates.${key} inválido: "${value}" (esperado: ${GATE_VALUES.join('|')})`,
+                'FRAMEWORK.yaml',
+              );
+            }
+          }
+        }
+        if (profile.ai) {
+          if (profile.ai.default_autonomy !== undefined && !AUTONOMY_VALUES.includes(profile.ai.default_autonomy)) {
+            reporter.error(
+              `profiles.${profileName}.ai.default_autonomy inválido: "${profile.ai.default_autonomy}" (esperado: ${AUTONOMY_VALUES.join('|')})`,
+              'FRAMEWORK.yaml',
+            );
+          }
+        }
+        if (profile.commands) {
+          for (const [name, cmd] of Object.entries(profile.commands)) {
+            if (typeof cmd !== 'string' || !cmd.trim()) {
+              reporter.error(`profiles.${profileName}.commands.${name} debe ser un comando no vacío`, 'FRAMEWORK.yaml');
+            }
+          }
+        }
+      }
+    }
+  }
+
   if (reporter.errors === 0) reporter.ok('Manifiesto válido según el esquema del framework.');
   return reporter;
 }

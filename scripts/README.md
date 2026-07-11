@@ -25,12 +25,35 @@ node scripts/prepare-release.mjs        # verificación previa a release
 | `check-placeholders.mjs` | Sin `CHANGE_ME` en documentación (error; advertencia en bootstrap). `TODO`, `FIXME`, `TBD` y `HACK` son siempre advertencia. Excluye rutas de plantilla y código dentro de Markdown. | Marcador de plantilla fuera de bootstrap. |
 | `new-adr.mjs "Título"` | Crea el siguiente ADR numerado desde la plantilla 0000 con fecha del día. | Sin título o número duplicado. |
 | `health-score.mjs` | Ejecuta todos los validadores y pondera un score 0-100 (`--json`, `--out reporte.json`). Niveles: ≥90 saludable, ≥70 aceptable, ≥50 insuficiente, <50 crítico. | Score < 70 (código de salida 1). |
-| `quality-gates.mjs` | Gate local completo: todos los validadores y después los comandos de la sección `commands` del manifiesto (`--skip-commands` los omite). | Cualquier validador con errores o comando con salida ≠ 0. |
+| `quality-gates.mjs` | Gate local completo: todos los validadores y después los comandos de la sección `commands` del manifiesto (`--skip-commands` los omite). `--profile <nombre>` usa los `commands` resueltos de ese perfil (ver ADR-0004). | Cualquier validador con errores o comando con salida ≠ 0. |
+| `resolve-profile.mjs <nombre>` | Imprime la configuración efectiva (`quality_gates`, `ai`, `commands`) de un perfil declarado en `FRAMEWORK.yaml: profiles` (`--json` para máquina). Herramienta de inspección; no ejecuta nada. | Perfil inexistente. |
 | `prepare-release.mjs` | Verifica versión del manifiesto ↔ entrada de CHANGELOG ↔ inventario, y corre los quality gates. `--sync-inventory` regenera `framework-inventory.json`. | Cualquier verificación fallida. |
 
 ## Severidad según el estado del proyecto (ADR-0002)
 
 Con `project.status: bootstrap` los marcadores de plantilla son advertencias; con cualquier otro estado (`active`, `production`, `maintenance`) son errores. `init-project.mjs` deja el proyecto en bootstrap; cambia el estado a `active` cuando el contexto esté completo.
+
+## Perfiles de configuración por ambiente (ADR-0004)
+
+`FRAMEWORK.yaml` admite una sección opcional `profiles` con overrides parciales por clave de `quality_gates`, `ai` y `commands`. Sin `profiles` o sin pedir uno, nada cambia — es aditivo y retrocompatible.
+
+```yaml
+profiles:
+  dev:
+    quality_gates:
+      e2e_tests: optional        # solo esta clave cambia; el resto se hereda
+    ai:
+      default_autonomy: full
+    commands:
+      tests: npm run test:fast   # sobrescribe o añade un comando
+```
+
+```bash
+node scripts/resolve-profile.mjs dev          # inspecciona qué se resolvería
+node scripts/quality-gates.mjs --profile dev  # ejecuta el gate con los commands de "dev"
+```
+
+Este propio repositorio declara `contributor` (autonomía `full`, escaneos de dependencias/secretos `optional`, para iteración local) y `release` (añade `release_check: node scripts/prepare-release.mjs`) como ejemplo real.
 
 ## Subconjunto YAML soportado en FRAMEWORK.yaml
 

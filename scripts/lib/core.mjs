@@ -185,6 +185,36 @@ export function isFrameworkRepo(manifest) {
   return manifest?.project?.type === 'methodology-template';
 }
 
+/* -------------------------- Perfiles -------------------------- */
+
+/** Secciones que un perfil puede sobrescribir; todo lo demás del manifiesto queda intacto. */
+export const PROFILE_OVERRIDABLE_SECTIONS = ['quality_gates', 'ai', 'commands'];
+
+/**
+ * Resuelve el manifiesto efectivo para un perfil: superpone (shallow-merge por
+ * clave, no reemplazo de sección completa) `manifest.profiles[profileName]`
+ * sobre `quality_gates`, `ai` y `commands`. Las claves no declaradas en el
+ * perfil heredan el valor base. Sin `profiles` o sin `profileName`, devuelve
+ * el manifiesto sin cambios (compatibilidad hacia atrás total).
+ */
+export function resolveProfile(manifest, profileName) {
+  if (!profileName) return manifest;
+  const profile = manifest?.profiles?.[profileName];
+  if (!profile) {
+    const available = Object.keys(manifest?.profiles ?? {});
+    throw new Error(
+      `Perfil desconocido: "${profileName}". Perfiles declarados: ${available.length ? available.join(', ') : '(ninguno)'}.`,
+    );
+  }
+  const resolved = { ...manifest };
+  for (const section of PROFILE_OVERRIDABLE_SECTIONS) {
+    if (profile[section]) {
+      resolved[section] = { ...(manifest[section] ?? {}), ...profile[section] };
+    }
+  }
+  return resolved;
+}
+
 /* -------------------------- Archivos -------------------------- */
 
 export const DEFAULT_EXCLUDED_DIRS = new Set([
