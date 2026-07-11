@@ -118,3 +118,5 @@ class SaludoScreen extends StatelessWidget {
   }
 }
 ```
+
+El [ejemplo flutter-greeting-app](../../examples/flutter-greeting-app/README.md) implementa este mismo patrón de forma ejecutable y probada (dominio puro + controlador `ChangeNotifier` + widget delgado, 18 pruebas con render real vía `testWidgets`) — ver su ADR-0001 sobre cómo se instaló el SDK real de Flutter en este entorno.

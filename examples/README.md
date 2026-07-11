@@ -12,6 +12,7 @@ Adopciones de referencia del framework, completas y validables de punta a punta.
 | [dotnet-greeting-service](dotnet-greeting-service/README.md) | La [extensión dotnet](../extensions/dotnet/README.md) llevada a código real: dominio puro, Minimal API con ASP.NET Core 8, `src/`+`test/` como proyectos hermanos (ADR-0001 propio explica por qué), 15 pruebas (xUnit + `WebApplicationFactory`). |
 | [infrastructure-module](infrastructure-module/README.md) | La [extensión infrastructure](../extensions/infrastructure/README.md) llevada a código real: módulo Terraform con variables validadas y outputs documentados, verificado de punta a punta (`fmt`/`validate`/`plan`/`apply`/`destroy`) con el proveedor `local`, sin ninguna cuenta de nube (ADR-0001 propio explica por qué). |
 | [python-greeting-service](python-greeting-service/README.md) | La [extensión python](../extensions/python/README.md) llevada a código real: dominio puro, API con FastAPI, Python real instalado sin instalador del sistema (distribución embebida, ADR-0001 propio), 17 pruebas (pytest + `TestClient`). |
+| [flutter-greeting-app](flutter-greeting-app/README.md) | La [extensión mobile](../extensions/mobile/README.md) llevada a código real: dominio puro, controlador de estado (`ChangeNotifier`), widget delgado, SDK real de Flutter instalado sin el bootstrap interno de `flutter.bat` (ADR-0001 propio), 18 pruebas (`package:test` + `flutter_test`/`testWidgets`). |
 
 Cada ejemplo debe pasar los validadores del framework:
 
@@ -39,6 +40,9 @@ cd examples/infrastructure-module && terraform fmt -check -recursive && terrafor
 
 node scripts/quality-gates.mjs --root examples/python-greeting-service --skip-commands
 cd examples/python-greeting-service && python -m pip install "fastapi>=0.115.0" "uvicorn>=0.30.0" "pytest>=8.3.0" "httpx>=0.27.0" && python -m pytest -v
+
+node scripts/quality-gates.mjs --root examples/flutter-greeting-app --skip-commands
+cd examples/flutter-greeting-app && flutter pub get && flutter test && flutter analyze
 ```
 
 `minimal-service` usa Node.js solo porque es el runtime ya exigido por el tooling (ADR-0001); su estructura documental es idéntica para cualquier stack. Los demás ejemplos sí usan dependencias y toolchains reales porque su propósito es demostrar cada extensión tal cual se usaría en un proyecto real, no minimizar el footprint.

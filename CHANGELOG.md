@@ -9,13 +9,12 @@ Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y ve
 
 - Tercer y último frente de la fase 2.0: motor de políticas de gobernanza de IA. `scripts/classify-change.mjs <ruta>[:A|M|D]...` clasifica rutas contra las categorías de `.ai/governance/DECISION_POLICY.md` con reglas deterministas (manifiestos de dependencias, workflows de CI/CD, rutas de migración, `SECURITY_POLICY.md`, archivos eliminados), reutilizando `matchModules`/`matchAdrs` de `resolve-context.mjs`. `.ai/AGENTS.md` lo referencia antes de tocar rutas sensibles. Documentado en [ADR-0006](.ai/decisions/adr/0006-motor-de-politicas-de-gobernanza-de-ia.md), que revisa explícitamente la postura de "no por ahora" del ADR-0004 a partir de un pedido explícito del usuario.
 
-### Known limitations
-- Ejemplo ejecutable de Flutter: tercer intento. Se evitó `storage.googleapis.com` clonando el SDK vía `git clone` de GitHub (éxito, ~22 s, requiere `core.longpaths` en Windows), pero el primer arranque de `flutter --version` necesita el binario del Dart SDK, servido también desde `storage.googleapis.com` — se estancó en 4 KB durante más de 12 minutos. Confirma que el bloqueo es específico de ese host/CDN para cualquier binario de Flutter/Dart, no del tamaño del artefacto ni de la sesión en general. Se abandonó de nuevo. Ver `ROADMAP.md`.
-- `scripts/tests/classify-change.test.mjs`: 8 pruebas nuevas (36/36 en el suite completo).
+- Octavo y último ejemplo de adopción, cerrando la cobertura de las ocho extensiones: `examples/flutter-greeting-app` implementa la extensión mobile (dominio puro, controlador de estado `ChangeNotifier`, widget delgado sobre Flutter Material), con el SDK real de Flutter 3.44.6 instalado localmente. Los tres intentos anteriores habían diagnosticado `storage.googleapis.com` como limitado a ~100 KB/s; un cuarto intento verificó ese diagnóstico con `curl` en vez de asumirlo y lo encontró falso (40-56 MB/s sostenido contra el mismo host) — el cuello de botella real era el mecanismo de descarga usado (downloader por defecto y bootstrap interno de `flutter.bat`), no la red. Descargando el zip oficial con `curl` y extrayéndolo con `tar.exe` nativo de Windows, el SDK quedó listo en minutos. Documentado en su propio [ADR-0001](examples/flutter-greeting-app/.ai/decisions/adr/0001-sdk-de-flutter-via-descarga-directa.md). 18 pruebas (`package:test` + `flutter_test`/`testWidgets`), `flutter analyze` y `dart format` sin hallazgos.
 
 ### Changed
-- `extensions/python/README.md` y `examples/README.md` enlazan el nuevo ejemplo.
+- `extensions/python/README.md`, `extensions/mobile/README.md` y `examples/README.md` enlazan los nuevos ejemplos.
 - `scripts/lib/core.mjs`: `DEFAULT_EXCLUDED_DIRS` ahora también excluye `__pycache__` y `.pytest_cache` del conteo del inventario.
+- `scripts/tests/classify-change.test.mjs`: 8 pruebas nuevas (36/36 en el suite completo antes de sumar las de Flutter).
 
 ## [1.4.0] - 2026-07-11
 
