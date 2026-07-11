@@ -8,6 +8,7 @@ Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y ve
 - Tercer ejemplo de adopción: `examples/angular-greeting-app` implementa la extensión angular (standalone component, `ChangeDetectionStrategy.OnPush`, estado por signals, servicio inyectable sobre un dominio puro), con 12 pruebas y sin vulnerabilidades conocidas en dependencias. Documenta en su propio ADR-0001 cómo se prueba la lógica del componente sin `TestBed` ni Angular CLI, y qué queda deliberadamente sin cobertura (el binding de la plantilla al DOM).
 
 - Cuarto ejemplo de adopción: `examples/react-greeting-app` implementa la extensión react (hook `useGreeting` con estado derivado vía `useMemo`, componente de presentación `GreetingForm`), con 11 pruebas que renderizan de verdad sobre DOM (jsdom + `react-dom/client`) sin `@testing-library/react` ni la deprecada `react-test-renderer`, y sin vulnerabilidades conocidas en dependencias. Documentado en su propio ADR-0001.
+- [ADR-0003](.ai/decisions/adr/0003-no-agregar-extension-de-datos-ml-por-ahora.md): decisión explícita de no agregar una extensión de datos/ML por ahora, con las condiciones que la reabrirían.
 
 ### Changed
 - `extensions/angular/README.md`, `extensions/react/README.md` y `examples/README.md` enlazan los nuevos ejemplos.
