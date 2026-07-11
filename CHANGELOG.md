@@ -2,7 +2,7 @@
 
 Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y versionado semántico.
 
-## [Unreleased]
+## [1.4.0] - 2026-07-11
 
 ### Added
 - Primera pieza de la fase 2.0 (Runtime): perfiles de configuración por ambiente. Nueva sección opcional `profiles` en `FRAMEWORK.yaml` con overrides parciales por clave de `quality_gates`, `ai` y `commands`; `scripts/resolve-profile.mjs` inspecciona la configuración efectiva de un perfil; `quality-gates.mjs --profile <nombre>` ejecuta los `commands` resueltos de ese perfil. Aditivo y retrocompatible: sin `profiles`, nada cambia. Documentado en [ADR-0004](.ai/decisions/adr/0004-perfiles-de-configuracion-por-ambiente.md).
@@ -14,6 +14,9 @@ Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y ve
 
 ### Changed
 - `scripts/validate-manifest.mjs` valida la sección `profiles` cuando existe (mismas reglas que la sección base, sin exigir las 12 claves).
+
+### Known limitations
+- Motor de políticas de gobernanza de IA (tercer frente de 2.0): descartado por ahora en el [ADR-0004](.ai/decisions/adr/0004-perfiles-de-configuracion-por-ambiente.md) por falta de necesidad demostrada, no diseñado.
 
 ## [1.3.0] - 2026-07-11
 
