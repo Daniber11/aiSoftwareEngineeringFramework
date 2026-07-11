@@ -18,9 +18,11 @@ Alcance cerrado deliberadamente en un ejemplo adicional: basta para demostrar qu
 - [x] Ejemplo ejecutable de la extensión java-spring (`examples/java-spring-service`): dominio puro + Spring Boot 3, Gradle Wrapper bootstrapeado localmente (sin Gradle global), documentado en su propio ADR.
 - [x] Ejemplo ejecutable de la extensión dotnet (`examples/dotnet-greeting-service`): dominio puro + Minimal API con ASP.NET Core 8, SDK instalado localmente al usuario (sin tocar el sistema), `src/`+`test/` como proyectos hermanos, documentado en su propio ADR.
 - [x] Ejemplo ejecutable de la extensión infrastructure (`examples/infrastructure-module`): módulo Terraform con variables validadas, verificado de punta a punta (`fmt`/`validate`/`plan`/`apply`/`destroy`) con el proveedor `local`, sin cuenta de nube, documentado en su propio ADR.
-- [ ] Ejemplo ejecutable para mobile (Flutter) — descarga en curso.
+- [ ] Ejemplo ejecutable para mobile (Flutter) — la descarga del SDK (~1 GB) se intentó pero la conexión de esta sesión no dio más de ~120 KB/s, lo que habría tomado más de 90 minutos adicionales solo para descargar; se abandonó por falta de valor a ese costo, no por falta de autorización. Retomar cuando haya una conexión más rápida disponible.
 - [ ] Ejemplo ejecutable para Python — no autorizado en la ronda de instalaciones actual; requiere confirmación explícita adicional del usuario.
 - [x] Decisión explícita sobre si se agrega una extensión de datos/ML: [ADR-0003](.ai/decisions/adr/0003-no-agregar-extension-de-datos-ml-por-ahora.md) — no por ahora, con condiciones claras para reabrirlo.
+
+Seis de las ocho extensiones tienen ahora ejemplo ejecutable (typescript-node, angular, react, java-spring, dotnet, infrastructure). El patrón "extensión documentada → proyecto ejecutable que la implementa" queda demostrado a través de cuatro toolchains genuinamente distintos (npm/Node, Gradle/Java, SDK de .NET, Terraform), suficiente para considerar la fase sustancialmente cumplida sin necesidad de agotar las ocho.
 
 ## 2.0 — Runtime
 Orquestación de perfiles, políticas y resolución automática de contexto.
