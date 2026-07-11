@@ -1,6 +1,6 @@
 framework:
   name: AI Software Engineering Framework
-  version: 1.4.0
+  version: 1.5.0
   specification_version: 1
   mode: production-ready-by-default
   model_agnostic: true

@@ -24,7 +24,7 @@ Alcance cerrado deliberadamente en un ejemplo adicional: basta para demostrar qu
 
 Las ocho extensiones tienen ahora ejemplo ejecutable (typescript-node, angular, react, java-spring, dotnet, infrastructure, python, mobile). El patrón "extensión documentada → proyecto ejecutable que la implementa" queda demostrado a través de seis toolchains genuinamente distintos (npm/Node, Gradle/Java, SDK de .NET, Terraform, Python embebido, SDK de Flutter). Cobertura completa: 1.3 queda cerrada.
 
-## 2.0 — Runtime (en curso)
+## 2.0 — Runtime (entregado)
 - [x] Perfiles de configuración por ambiente: sección `profiles` en `FRAMEWORK.yaml` con overrides parciales de `quality_gates`/`ai`/`commands`, resueltos por `scripts/resolve-profile.mjs` y `quality-gates.mjs --profile`. Ver [ADR-0004](.ai/decisions/adr/0004-perfiles-de-configuracion-por-ambiente.md). Este propio repositorio declara `contributor` y `release` como dogfooding real.
 - [x] Resolución automática de contexto: `scripts/resolve-context.mjs <ruta>` cruza la ruta dada contra `MODULES.md` y el "Alcance" de cada ADR, sin metadatos nuevos que mantener. Ver [ADR-0005](.ai/decisions/adr/0005-resolucion-automatica-de-contexto.md). `.ai/AGENTS.md` ahora referencia esta herramienta en su paso 5.
 - [x] Motor de políticas para gobernanza de IA: `scripts/classify-change.mjs` clasifica rutas contra las categorías de `DECISION_POLICY.md` con reglas deterministas por ruta (manifiestos de dependencias, CI/CD, migraciones, seguridad, eliminaciones), reutilizando `resolve-context.mjs`. Retomado a pedido explícito del usuario, que es exactamente la condición de reapertura que el propio ADR-0004 había fijado. Ver [ADR-0006](.ai/decisions/adr/0006-motor-de-politicas-de-gobernanza-de-ia.md).
