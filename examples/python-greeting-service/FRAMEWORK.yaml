@@ -1,0 +1,47 @@
+framework:
+  name: AI Software Engineering Framework
+  version: 1.4.0
+  specification_version: 1
+  mode: production-ready-by-default
+  model_agnostic: true
+
+project:
+  name: python-greeting-service
+  type: backend-service
+  maturity_target: production
+  risk_level: low
+  repository_strategy: monorepo
+  status: active
+
+authority:
+  manifest: FRAMEWORK.yaml
+  governance: .ai/governance/DECISION_POLICY.md
+  active_context: .ai/context/CURRENT_CONTEXT.md
+  architecture: .ai/context/ARCHITECTURE.md
+  modules: .ai/context/MODULES.md
+  decisions: .ai/decisions/adr
+
+quality_gates:
+  formatting: optional
+  linting: optional
+  static_analysis: optional
+  unit_tests: required
+  integration_tests: required
+  e2e_tests: disabled
+  contract_tests: disabled
+  security_scanning: required
+  dependency_scanning: required
+  secret_scanning: required
+  build_reproducibility: required
+  documentation_validation: required
+
+commands:
+  tests: python -m pytest -v
+
+ai:
+  default_autonomy: bounded
+  context_policy: minimum-necessary
+  require_plan_for_high_risk: true
+  require_adr_for_architecture_changes: true
+  max_unrelated_files_per_change: 0
+  preferred_output: summary-diff-validation

@@ -2,6 +2,14 @@
 
 Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y versionado semántico.
 
+## [Unreleased]
+
+### Added
+- Octavo ejemplo de adopción: `examples/python-greeting-service` implementa la extensión python (dominio puro, API con FastAPI), con Python 3.12 instalado localmente vía distribución embebida (el instalador oficial `.exe` falló dos veces con `0x80070003` — MSI restringido en este entorno — así que se usó el zip embebido sin instalador, `pip` bootstrapeado con `get-pip.py`) y 17 pruebas (pytest + `TestClient`). Documentado en su propio ADR-0001. Verificado además con un smoke test real (`uvicorn` + peticiones HTTP).
+
+### Changed
+- `extensions/python/README.md` y `examples/README.md` enlazan el nuevo ejemplo.
+
 ## [1.4.0] - 2026-07-11
 
 ### Added

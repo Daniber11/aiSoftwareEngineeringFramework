@@ -126,3 +126,5 @@ def greet(name: str = Query(min_length=1, max_length=80)) -> dict[str, str]:
     except GreetingError as e:
         raise HTTPException(status_code=400, detail=str(e))
 ```
+
+El [ejemplo python-greeting-service](../../examples/python-greeting-service/README.md) implementa este mismo patrón de forma ejecutable y probada — ver su ADR-0001 sobre cómo se instaló Python real sin instalador del sistema.
