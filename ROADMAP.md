@@ -12,8 +12,10 @@ Validadores, health score, quality gates, CLI de bootstrap/ADR/contexto/release,
 
 Alcance cerrado deliberadamente en un ejemplo adicional: basta para demostrar que el patrón "extensión documentada → proyecto ejecutable que la implementa" generaliza más allá del ejemplo cero-dependencias de la 1.1. Un ejemplo ejecutable por cada una de las 8 extensiones queda fuera de esta versión — cada uno requiere instalar y verificar un toolchain distinto (Gradle/Maven para Java, SDK de .NET, Python real, Flutter, Terraform), y ninguno estaba disponible y verificable en el entorno de esta sesión. Se retoma en 1.3 cuando haya cómo validarlos de punta a punta, no solo describirlos.
 
-## 1.3 — Cobertura de extensiones y datos/ML
-- [ ] Ejemplos ejecutables para el resto de extensiones (Java/Spring, Python, .NET, React, Angular, mobile, infraestructura), priorizando las que tengan toolchain verificable en CI.
+## 1.3 — Cobertura de extensiones y datos/ML (en curso)
+- [x] Ejemplo ejecutable de la extensión angular (`examples/angular-greeting-app`): standalone, `OnPush`, signals; pruebas de componente sin `TestBed` documentadas en su propio ADR.
+- [ ] Ejemplo ejecutable de la extensión react (mismo toolchain npm ya verificado).
+- [ ] Ejemplos ejecutables para Java/Spring, Python, .NET, mobile e infraestructura — requieren un entorno con Gradle/Maven, SDK de .NET, Python real, Flutter o Terraform, no disponibles al momento de escribir esto.
 - [ ] Decisión explícita (ADR) sobre si se agrega una extensión de datos/ML, fuera del alcance original de `extensions/README.md`.
 
 ## 2.0 — Runtime

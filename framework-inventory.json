@@ -1,7 +1,7 @@
 {
   "name": "AI Software Engineering Framework",
   "version": "1.2.0",
-  "file_count": 108,
+  "file_count": 129,
   "entrypoints": [
     "README.md",
     "CODEX_BOOTSTRAP_PROMPT.md",

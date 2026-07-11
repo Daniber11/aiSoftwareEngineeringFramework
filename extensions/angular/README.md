@@ -126,3 +126,5 @@ export class SaludoComponent {
   saludo = toSignal(this.service.obtener('Ada'));
 }
 ```
+
+El [ejemplo angular-greeting-app](../../examples/angular-greeting-app/README.md) implementa este mismo patrón (standalone, `OnPush`, signals) de forma ejecutable y probada, sin backend real ni Angular CLI — ver su ADR-0001 sobre cómo prueba la lógica del componente sin `TestBed`.

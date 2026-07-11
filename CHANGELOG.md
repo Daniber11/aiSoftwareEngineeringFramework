@@ -2,6 +2,15 @@
 
 Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y versionado semántico.
 
+## [Unreleased]
+
+### Added
+- Tercer ejemplo de adopción: `examples/angular-greeting-app` implementa la extensión angular (standalone component, `ChangeDetectionStrategy.OnPush`, estado por signals, servicio inyectable sobre un dominio puro), con 12 pruebas y sin vulnerabilidades conocidas en dependencias. Documenta en su propio ADR-0001 cómo se prueba la lógica del componente sin `TestBed` ni Angular CLI, y qué queda deliberadamente sin cobertura (el binding de la plantilla al DOM).
+
+### Changed
+- `extensions/angular/README.md` y `examples/README.md` enlazan el nuevo ejemplo.
+- `@angular/core` se fija en `^20.3.26` para evitar tres CVE de XSS conocidas en versiones ≤ 19.2.25.
+
 ## [1.2.0] - 2026-07-10
 
 ### Added
