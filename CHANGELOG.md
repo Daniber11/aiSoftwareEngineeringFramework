@@ -2,7 +2,7 @@
 
 Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y versionado semántico.
 
-## [Unreleased]
+## [1.3.0] - 2026-07-11
 
 ### Added
 - Tercer ejemplo de adopción: `examples/angular-greeting-app` implementa la extensión angular (standalone component, `ChangeDetectionStrategy.OnPush`, estado por signals, servicio inyectable sobre un dominio puro), con 12 pruebas y sin vulnerabilidades conocidas en dependencias. Documenta en su propio ADR-0001 cómo se prueba la lógica del componente sin `TestBed` ni Angular CLI, y qué queda deliberadamente sin cobertura (el binding de la plantilla al DOM).
@@ -17,6 +17,10 @@ Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y ve
 - `extensions/angular/README.md`, `extensions/react/README.md`, `extensions/java-spring/README.md`, `extensions/dotnet/README.md`, `extensions/infrastructure/README.md` y `examples/README.md` enlazan los nuevos ejemplos.
 - `@angular/core` se fija en `^20.3.26` para evitar tres CVE de XSS conocidas en versiones ≤ 19.2.25.
 - `scripts/lib/core.mjs`: `DEFAULT_EXCLUDED_DIRS` ahora excluye cachés locales de toolchains (`.gradle`, `bin`, `obj`, `.dart_tool`, `.terraform`) del conteo de `framework-inventory.json`.
+
+### Known limitations
+- Extensión mobile (Flutter): sin ejemplo ejecutable — la descarga del SDK se abandonó por velocidad de red de la sesión de desarrollo (~120 KB/s), no por decisión de alcance. Ver `ROADMAP.md`.
+- Extensión python: sin ejemplo ejecutable — no autorizado en la ronda de instalaciones de esta versión.
 
 ## [1.2.0] - 2026-07-10
 
