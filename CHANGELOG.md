@@ -8,6 +8,9 @@ Todos los cambios relevantes se documentan aquí siguiendo Keep a Changelog y ve
 - Octavo ejemplo de adopción: `examples/python-greeting-service` implementa la extensión python (dominio puro, API con FastAPI), con Python 3.12 instalado localmente vía distribución embebida (el instalador oficial `.exe` falló dos veces con `0x80070003` — MSI restringido en este entorno — así que se usó el zip embebido sin instalador, `pip` bootstrapeado con `get-pip.py`) y 17 pruebas (pytest + `TestClient`). Documentado en su propio ADR-0001. Verificado además con un smoke test real (`uvicorn` + peticiones HTTP).
 
 - Tercer y último frente de la fase 2.0: motor de políticas de gobernanza de IA. `scripts/classify-change.mjs <ruta>[:A|M|D]...` clasifica rutas contra las categorías de `.ai/governance/DECISION_POLICY.md` con reglas deterministas (manifiestos de dependencias, workflows de CI/CD, rutas de migración, `SECURITY_POLICY.md`, archivos eliminados), reutilizando `matchModules`/`matchAdrs` de `resolve-context.mjs`. `.ai/AGENTS.md` lo referencia antes de tocar rutas sensibles. Documentado en [ADR-0006](.ai/decisions/adr/0006-motor-de-politicas-de-gobernanza-de-ia.md), que revisa explícitamente la postura de "no por ahora" del ADR-0004 a partir de un pedido explícito del usuario.
+
+### Known limitations
+- Ejemplo ejecutable de Flutter: reintentado con una conexión de sesión notablemente más rápida (hasta 24 MB/s hacia python.org/pypi), pero `storage.googleapis.com` — donde vive el SDK de Flutter — se mantuvo en ~100 KB/s; parece un cuello de botella específico de ese host, no de la sesión. Se abandonó de nuevo tras confirmar el patrón. Ver `ROADMAP.md`.
 - `scripts/tests/classify-change.test.mjs`: 8 pruebas nuevas (36/36 en el suite completo).
 
 ### Changed
